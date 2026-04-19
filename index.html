@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Living Friends Church</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── CSS Variables ── */
+    :root {
+      --green-dark:  #1e3a2f;
+      --green-mid:   #2d5c45;
+      --green-light: #4a8c6a;
+      --green-pale:  #e8f2ec;
+      --white:       #fafdf9;
+      --cream:       #f4f0e8;
+      --gold:        #c9a84c;
+      --text-dark:   #1a2e22;
+      --text-mid:    #3d5c47;
+      --text-light:  #7a9e86;
+    }
+
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(30, 58, 47, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      transition: padding 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--green-dark) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 2px;
+      font-weight: 500 !important;
+    }
+    .nav-cta:hover { background: #e0bb5a; color: var(--green-dark) !important; }
+
+    /* Hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); transition: all 0.3s; }
+    .mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--green-dark); z-index: 99; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--white); text-decoration: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; letter-spacing: 0.05em;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-close {
+      position: absolute; top: 1.5rem; right: 5%;
+      background: none; border: none; cursor: pointer;
+      color: var(--white); font-size: 2rem;
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(to bottom, rgba(20,45,32,0.72) 0%, rgba(20,45,32,0.45) 60%, rgba(20,45,32,0.8) 100%),
+        url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=1600&q=80') center/cover no-repeat;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 2rem 5%;
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    #hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      color: var(--white); font-weight: 400; line-height: 1.1;
+      margin-bottom: 1.4rem;
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+    #hero h1 em { font-style: italic; color: #b8e0c4; }
+    #hero p {
+      font-size: 1.1rem; color: rgba(255,255,255,0.82);
+      max-width: 520px; line-height: 1.7; margin-bottom: 2.5rem;
+      font-weight: 300;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .hero-buttons {
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.8s 0.45s ease both;
+    }
+    .btn-primary {
+      background: var(--gold); color: var(--green-dark);
+      padding: 0.85rem 2.2rem; border: none; border-radius: 2px;
+      font-family: 'Jost', sans-serif; font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #e0bb5a; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      padding: 0.85rem 2.2rem; border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 2px; font-family: 'Jost', sans-serif;
+      font-size: 0.85rem; font-weight: 400; letter-spacing: 0.12em;
+      text-transform: uppercase; cursor: pointer; text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--white); transform: translateY(-2px); }
+    .hero-scroll {
+      position: absolute; bottom: 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: rgba(255,255,255,0.5); font-size: 0.7rem; letter-spacing: 0.2em;
+      text-transform: uppercase; animation: bounce 2s infinite;
+    }
+    .hero-scroll::after {
+      content: ''; width: 1px; height: 40px;
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* ── Service Times Bar ── */
+    #service-bar {
+      background: var(--green-dark);
+      padding: 1.4rem 5%;
+      display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+    }
+    .service-item { text-align: center; }
+    .service-item .label {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.3rem;
+    }
+    .service-item .time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; color: var(--white);
+    }
+
+    /* ── Section Styles ── */
+    section { padding: 6rem 5%; }
+    .section-label {
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--green-light); margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400; line-height: 1.2;
+      color: var(--green-dark); margin-bottom: 1.2rem;
+    }
+    .section-title em { font-style: italic; color: var(--green-light); }
+    .section-body {
+      font-size: 1rem; line-height: 1.8; color: var(--text-mid);
+      max-width: 600px; font-weight: 300;
+    }
+    .divider {
+      width: 48px; height: 2px; background: var(--gold);
+      margin: 1.5rem 0;
+    }
+
+    /* ── About ── */
+    #about {
+      background: var(--white);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center;
+    }
+    .about-image {
+      position: relative; border-radius: 2px; overflow: hidden;
+      aspect-ratio: 4/5;
+    }
+    .about-image img { width: 100%; height: 100%; object-fit: cover; }
+    .about-image::before {
+      content: ''; position: absolute; inset: -12px -12px auto auto;
+      width: 60%; height: 60%;
+      border-top: 2px solid var(--gold);
+      border-right: 2px solid var(--gold);
+      z-index: 1; pointer-events: none;
+    }
+    .about-image::after {
+      content: ''; position: absolute; inset: auto auto -12px -12px;
+      width: 40%; height: 40%;
+      border-bottom: 2px solid var(--green-light);
+      border-left: 2px solid var(--green-light);
+      z-index: 1; pointer-events: none;
+    }
+    .values { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem; }
+    .value-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .value-icon {
+      width: 36px; height: 36px; background: var(--green-pale);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0; margin-top: 2px;
+    }
+    .value-item h4 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+      color: var(--green-dark); margin-bottom: 0.2rem;
+    }
+    .value-item p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; font-weight: 300; }
+
+    /* ── Events ── */
+    #events { background: var(--green-pale); }
+    #events .section-inner { max-width: 1100px; margin: 0 auto; }
+    #events .section-header { margin-bottom: 3rem; }
+    .events-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .event-card {
+      background: var(--white); border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 2px 20px rgba(30,58,47,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .event-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(30,58,47,0.12); }
+    .event-card-top {
+      background: var(--green-dark); padding: 1.2rem 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .event-date-box {
+      text-align: center; min-width: 48px;
+    }
+    .event-date-box .month {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .event-date-box .day {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; color: var(--white); line-height: 1;
+    }
+    .event-card-top h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; color: var(--white); font-weight: 400;
+    }
+    .event-card-top p {
+      font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-top: 0.2rem;
+    }
+    .event-card-body { padding: 1.2rem 1.5rem; }
+    .event-card-body p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; font-weight: 300; }
+    .event-card-body .register-link {
+      display: inline-block; margin-top: 1rem;
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--green-mid); text-decoration: none; font-weight: 500;
+      border-bottom: 1px solid var(--green-light);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .event-card-body .register-link:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* ── Registration ── */
+    #registration { background: var(--white); }
+    #registration .inner {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start;
+    }
+    .registration-info h2 { margin-bottom: 0; }
+    .registration-info .section-body { margin-top: 1rem; }
+    .form-embed {
+      background: var(--green-pale);
+      border-radius: 2px; overflow: hidden;
+      border: 1px solid rgba(74,140,106,0.2);
+      min-height: 500px;
+    }
+    .form-embed iframe { width: 100%; min-height: 500px; border: none; }
+    .form-placeholder {
+      padding: 3rem 2rem; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    }
+    .form-placeholder .icon { font-size: 2.5rem; }
+    .form-placeholder h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; color: var(--green-dark);
+    }
+    .form-placeholder p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; font-weight: 300; }
+    .form-placeholder code {
+      background: rgba(45,92,69,0.1); padding: 0.3rem 0.6rem;
+      border-radius: 3px; font-size: 0.8rem; color: var(--green-mid);
+    }
+
+    /* ── Visit ── */
+    #visit {
+      background: var(--green-dark);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: center;
+    }
+    #visit .section-label { color: var(--gold); opacity: 0.8; }
+    #visit .section-title { color: var(--white); }
+    #visit .section-body { color: rgba(255,255,255,0.7); }
+    #visit .divider { background: var(--gold); opacity: 0.5; }
+    .visit-details { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+    .visit-detail { display: flex; gap: 1rem; align-items: flex-start; }
+    .visit-detail .icon {
+      font-size: 1.1rem; margin-top: 2px;
+      width: 32px; text-align: center; flex-shrink: 0;
+    }
+    .visit-detail h4 {
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.2rem;
+    }
+    .visit-detail p { font-size: 0.9rem; color: rgba(255,255,255,0.75); font-weight: 300; }
+    .map-container {
+      border-radius: 2px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      height: 320px; background: rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 2rem;
+    }
+    .map-container p {
+      color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.6;
+    }
+    .map-container code {
+      display: block; margin-top: 0.5rem;
+      color: var(--gold); font-size: 0.75rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #111e16;
+      padding: 3rem 5% 2rem;
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+    }
+    .footer-brand .nav-logo { font-size: 1.8rem; display: block; margin-bottom: 0.8rem; }
+    .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.7; font-weight: 300; max-width: 280px; }
+    .footer-col h4 {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-col ul a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--white); }
+    .footer-bottom {
+      grid-column: 1/-1; border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 1.5rem; margin-top: 1rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      #about { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-image { max-width: 400px; }
+      #registration .inner { grid-template-columns: 1fr; gap: 2rem; }
+      #visit { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1/-1; }
+      #service-bar { gap: 2rem; }
+    }
+    @media (max-width: 540px) {
+      section { padding: 4rem 5%; }
+      footer { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar ── -->
+  <nav>
+    <div class="nav-logo">Living <span>Friends</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#registration">Register</a></li>
+      <li><a href="#visit">Visit Us</a></li>
+      <li><a href="#registration" class="nav-cta">Join Us</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="toggleMenu()">✕</button>
+    <a href="#about" onclick="toggleMenu()">About</a>
+    <a href="#events" onclick="toggleMenu()">Events</a>
+    <a href="#registration" onclick="toggleMenu()">Register</a>
+    <a href="#visit" onclick="toggleMenu()">Visit Us</a>
+  </div>
+
+  <!-- ── Hero ── -->
+  <section id="hero">
+    <p class="hero-eyebrow">Welcome to Living Friends Church</p>
+    <h1>A place to <em>belong,</em><br>grow & serve</h1>
+    <p>Rooted in faith, open to all. Join our community every Sunday and experience worship, connection, and purpose.</p>
+    <div class="hero-buttons">
+      <a href="#visit" class="btn-primary">Plan Your Visit</a>
+      <a href="#about" class="btn-outline">Learn More</a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ── Service Times Bar ── -->
+  <div id="service-bar">
+    <div class="service-item">
+      <div class="label">Sunday Service</div>
+      <div class="time">8:00 AM &amp; 10:30 AM</div>
+    </div>
+    <div class="service-item">
+      <div class="label">Wednesday Prayer</div>
+      <div class="time">7:00 PM</div>
+    </div>
+    <div class="service-item">
+      <div class="label">Youth Group</div>
+      <div class="time">Friday 6:30 PM</div>
+    </div>
+    <div class="service-item">
+      <div class="label">Location</div>
+      <div class="time">123 Maple Street</div>
+    </div>
+  </div>
+
+  <!-- ── About ── -->
+  <section id="about">
+    <div class="about-image reveal">
+      <img src="https://images.unsplash.com/photo-1601142634808-38923eb7c560?w=800&q=80" alt="Church community" />
+    </div>
+    <div class="reveal">
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title">More than a church —<br><em>a family</em></h2>
+      <div class="divider"></div>
+      <p class="section-body">Living Friends Church has been a spiritual home in our community for over 30 years. We believe faith grows best in community — through honest conversations, generous service, and deep roots in Scripture.</p>
+      <div class="values">
+        <div class="value-item">
+          <div class="value-icon">🌿</div>
+          <div>
+            <h4>Rooted in Truth</h4>
+            <p>Our teaching is grounded in the Bible, made relevant for everyday life.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">🤝</div>
+          <div>
+            <h4>Open to All</h4>
+            <p>No matter where you are on your journey, you are welcome here.</p>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">💛</div>
+          <div>
+            <h4>Serving Together</h4>
+            <p>We love our city and our neighbors through action, not just words.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Events ── -->
+  <section id="events">
+    <div class="section-inner">
+      <div class="section-header reveal">
+        <p class="section-label">What's Coming</p>
+        <h2 class="section-title">Upcoming <em>Events</em></h2>
+        <div class="divider"></div>
+      </div>
+      <div class="events-grid">
+        <div class="event-card reveal">
+          <div class="event-card-top">
+            <div class="event-date-box">
+              <div class="month">May</div>
+              <div class="day">10</div>
+            </div>
+            <div>
+              <h3>Spring Conference 2025</h3>
+              <p>9:00 AM – 5:00 PM · Main Sanctuary</p>
+            </div>
+          </div>
+          <div class="event-card-body">
+            <p>A full-day conference exploring faith, family, and community. Featuring guest speakers, worship, and breakout sessions for all ages.</p>
+            <a href="#registration" class="register-link">Register Now →</a>
+          </div>
+        </div>
+        <div class="event-card reveal">
+          <div class="event-card-top">
+            <div class="event-date-box">
+              <div class="month">May</div>
+              <div class="day">24</div>
+            </div>
+            <div>
+              <h3>Youth Summer Kickoff</h3>
+              <p>6:30 PM · Fellowship Hall</p>
+            </div>
+          </div>
+          <div class="event-card-body">
+            <p>An exciting evening for teens and young adults to connect, worship, and kick off an amazing summer of growth and friendship.</p>
+            <a href="#registration" class="register-link">Register Now →</a>
+          </div>
+        </div>
+        <div class="event-card reveal">
+          <div class="event-card-top">
+            <div class="event-date-box">
+              <div class="month">Jun</div>
+              <div class="day">07</div>
+            </div>
+            <div>
+              <h3>Community Outreach Day</h3>
+              <p>8:00 AM · Church Parking Lot</p>
+            </div>
+          </div>
+          <div class="event-card-body">
+            <p>Join us as we serve our neighborhood — food drive, free meals, and volunteer opportunities for the whole family.</p>
+            <a href="#registration" class="register-link">Register Now →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Registration ── -->
+  <section id="registration">
+    <div class="inner">
+      <div class="reveal">
+        <p class="section-label">Join Us</p>
+        <h2 class="section-title">Event<br><em>Registration</em></h2>
+        <div class="divider"></div>
+        <p class="section-body">Sign up for our upcoming events below. We'd love to have you join us — whether it's your first time or you're a longtime member of our family.</p>
+        <br>
+        <p class="section-body" style="font-size:0.85rem;">
+          All registrations are free unless otherwise noted. Questions? Reach us at<br>
+          <strong style="color:var(--green-mid)">info@livingfriendschurch.org</strong>
+        </p>
+      </div>
+
+      <!-- 👇 REPLACE THIS with your Google Form embed -->
+      <div class="form-embed reveal">
+        <div class="form-placeholder">
+          <div class="icon">📋</div>
+          <h3>Google Form Goes Here</h3>
+          <p>Create your form at <strong>forms.google.com</strong>, then click<br><em>Send → Embed</em> and paste the <code>&lt;iframe&gt;</code> code here.</p>
+          <p style="margin-top:1rem; font-size:0.8rem;">Replace this entire <code>&lt;div class="form-placeholder"&gt;</code><br>block with your iframe code.</p>
+        </div>
+      </div>
+      <!-- Example of what the iframe will look like:
+      <div class="form-embed">
+        <iframe src="YOUR_GOOGLE_FORM_EMBED_URL" width="100%" height="600" frameborder="0">Loading…</iframe>
+      </div>
+      -->
+    </div>
+  </section>
+
+  <!-- ── Visit ── -->
+  <section id="visit">
+    <div class="reveal">
+      <p class="section-label">Find Us</p>
+      <h2 class="section-title" style="color:var(--white)">We'd love to<br><em style="color:#b8e0c4">meet you</em></h2>
+      <div class="divider"></div>
+      <p class="section-body" style="color:rgba(255,255,255,0.7)">Whether you're new to faith or looking for a new church home, the best way to experience Grace Valley is to come in person.</p>
+      <div class="visit-details">
+        <div class="visit-detail">
+          <div class="icon">📍</div>
+          <div>
+            <h4>Address</h4>
+            <p>123 Maple Street, Your City, TX 76000</p>
+          </div>
+        </div>
+        <div class="visit-detail">
+          <div class="icon">🕐</div>
+          <div>
+            <h4>Service Times</h4>
+            <p>Sunday: 8:00 AM &amp; 10:30 AM<br>Wednesday: 7:00 PM</p>
+          </div>
+        </div>
+        <div class="visit-detail">
+          <div class="icon">📞</div>
+          <div>
+            <h4>Contact</h4>
+            <p>(817) 555-0100<br>info@livingfriendschurch.org</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 👇 REPLACE with a real Google Maps embed -->
+    <div class="map-container reveal">
+      <div>
+        <p>📍 Replace this with a Google Maps embed</p>
+        <code>maps.google.com → Share → Embed a map</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-brand">
+      <span class="nav-logo">Living <span>Friends</span></span>
+      <p>A welcoming community of faith rooted in God's love and committed to serving one another and our city.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#registration">Register</a></li>
+        <li><a href="#visit">Visit Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">YouTube</a></li>
+        <li><a href="#">Podcast</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Living Friends Church. All rights reserved.</p>
+      <p>Built with ❤️ for our community</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Smooth navbar shrink on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 60) {
+        nav.style.padding = '0.8rem 5%';
+      } else {
+        nav.style.padding = '1.2rem 5%';
+      }
+    });
+  </script>
+
+</body>
+</html>
