@@ -8,16 +8,19 @@
   <style>
     /* ── CSS Variables ── */
     :root {
-      --green-dark:  #1e3a2f;
-      --green-mid:   #2d5c45;
-      --green-light: #4a8c6a;
-      --green-pale:  #e8f2ec;
-      --white:       #fafdf9;
-      --cream:       #f4f0e8;
-      --gold:        #c9a84c;
-      --text-dark:   #1a2e22;
-      --text-mid:    #3d5c47;
-      --text-light:  #7a9e86;
+      --green-dark:  #1a3d2b;
+      --green-mid:   #2a6040;
+      --green-light: #4a9463;
+      --green-pale:  #e6f2eb;
+      --white:       #fdfcfa;
+      --cream:       #f5f0e8;
+      --gold:        #b8860b;
+      --maroon:      #7a1020;
+      --maroon-mid:  #9b1a2f;
+      --maroon-light:#c0394f;
+      --text-dark:   #1a1a1a;
+      --text-mid:    #3d3d3d;
+      --text-light:  #6e6e6e;
     }
 
     /* ── Reset & Base ── */
@@ -35,7 +38,7 @@
       position: fixed; top: 0; width: 100%; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 1.2rem 5%;
-      background: rgba(30, 58, 47, 0.96);
+      background: rgba(122, 16, 32, 0.97);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(201,168,76,0.2);
       transition: padding 0.3s;
@@ -60,12 +63,12 @@
     .nav-links a:hover { color: var(--gold); }
     .nav-cta {
       background: var(--gold);
-      color: var(--green-dark) !important;
+      color: var(--maroon) !important;
       padding: 0.5rem 1.2rem;
       border-radius: 2px;
       font-weight: 500 !important;
     }
-    .nav-cta:hover { background: #e0bb5a; color: var(--green-dark) !important; }
+    .nav-cta:hover { background: #d4a017; color: var(--maroon) !important; }
 
     /* Hamburger */
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
@@ -92,7 +95,7 @@
     #hero {
       min-height: 100vh;
       background:
-        linear-gradient(to bottom, rgba(20,45,32,0.72) 0%, rgba(20,45,32,0.45) 60%, rgba(20,45,32,0.8) 100%),
+        linear-gradient(to bottom, rgba(90, 10, 20, 0.78) 0%, rgba(26, 61, 43, 0.55) 50%, rgba(90, 10, 20, 0.85) 100%),
         url('https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=1600&q=80') center/cover no-repeat;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center; padding: 2rem 5%;
@@ -122,14 +125,14 @@
       animation: fadeUp 0.8s 0.45s ease both;
     }
     .btn-primary {
-      background: var(--gold); color: var(--green-dark);
+      background: var(--gold); color: var(--white);
       padding: 0.85rem 2.2rem; border: none; border-radius: 2px;
       font-family: 'Jost', sans-serif; font-size: 0.85rem;
       font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
       cursor: pointer; text-decoration: none;
       transition: background 0.2s, transform 0.2s;
     }
-    .btn-primary:hover { background: #e0bb5a; transform: translateY(-2px); }
+    .btn-primary:hover { background: #d4a017; transform: translateY(-2px); }
     .btn-outline {
       background: transparent; color: var(--white);
       padding: 0.85rem 2.2rem; border: 1px solid rgba(255,255,255,0.5);
@@ -152,7 +155,7 @@
 
     /* ── Service Times Bar ── */
     #service-bar {
-      background: var(--green-dark);
+      background: var(--maroon);
       padding: 1.4rem 5%;
       display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
     }
@@ -170,15 +173,15 @@
     section { padding: 6rem 5%; }
     .section-label {
       font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--green-light); margin-bottom: 0.8rem;
+      color: var(--maroon-mid); margin-bottom: 0.8rem;
     }
     .section-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 400; line-height: 1.2;
-      color: var(--green-dark); margin-bottom: 1.2rem;
+      color: var(--maroon); margin-bottom: 1.2rem;
     }
-    .section-title em { font-style: italic; color: var(--green-light); }
+    .section-title em { font-style: italic; color: var(--green-mid); }
     .section-body {
       font-size: 1rem; line-height: 1.8; color: var(--text-mid);
       max-width: 600px; font-weight: 300;
@@ -242,7 +245,7 @@
     }
     .event-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(30,58,47,0.12); }
     .event-card-top {
-      background: var(--green-dark); padding: 1.2rem 1.5rem;
+      background: var(--maroon); padding: 1.2rem 1.5rem;
       display: flex; align-items: center; gap: 1rem;
     }
     .event-date-box {
@@ -268,8 +271,8 @@
     .event-card-body .register-link {
       display: inline-block; margin-top: 1rem;
       font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--green-mid); text-decoration: none; font-weight: 500;
-      border-bottom: 1px solid var(--green-light);
+      color: var(--maroon); text-decoration: none; font-weight: 500;
+      border-bottom: 1px solid var(--maroon-light);
       padding-bottom: 2px;
       transition: color 0.2s;
     }
@@ -307,14 +310,14 @@
 
     /* ── Visit ── */
     #visit {
-      background: var(--green-dark);
+      background: var(--maroon);
       display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
       align-items: center;
     }
-    #visit .section-label { color: var(--gold); opacity: 0.8; }
+    #visit .section-label { color: var(--gold); opacity: 0.9; }
     #visit .section-title { color: var(--white); }
-    #visit .section-body { color: rgba(255,255,255,0.7); }
-    #visit .divider { background: var(--gold); opacity: 0.5; }
+    #visit .section-body { color: rgba(255,255,255,0.75); }
+    #visit .divider { background: var(--gold); opacity: 0.6; }
     .visit-details { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.2rem; }
     .visit-detail { display: flex; gap: 1rem; align-items: flex-start; }
     .visit-detail .icon {
@@ -343,7 +346,7 @@
 
     /* ── Footer ── */
     footer {
-      background: #111e16;
+      background: #3a0510;
       padding: 3rem 5% 2rem;
       display: grid; grid-template-columns: 2fr 1fr 1fr;
       gap: 3rem;
@@ -401,7 +404,10 @@
 
   <!-- ── Navbar ── -->
   <nav>
-    <div class="nav-logo">Living <span>Friends</span></div>
+    <div class="nav-logo">
+      <img src="livingfriendslogo.jpg" alt="Living Friends Church Logo" style="height:42px; width:42px; border-radius:50%; object-fit:cover; margin-right:0.6rem; vertical-align:middle; border: 2px solid var(--gold);">
+      Living <span>Friends</span>
+    </div>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#events">Events</a></li>
